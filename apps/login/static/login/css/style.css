@@ -1,0 +1,29 @@
+.error{
+  color:red;
+}
+
+.success{
+  color:green;
+}
+#login{
+  width:25%;
+  height:100%;
+  display:inline-block;
+}
+#alert{
+  width:45%;
+  height:28em;
+  vertical-align: top;
+  border: 1px solid transparent;
+  text-align: center;
+  display:inline-block;
+  background:transparent;
+  margin-top:4em;
+}
+#alert ul li{
+  list-style:none;
+}
+#login ul li{
+  list-style: none;
+  text-align: right;
+}

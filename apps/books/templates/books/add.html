@@ -1,0 +1,32 @@
+{% extends 'books/base.html' %}
+
+{%block title%}Add Book and Review{% endblock %}
+
+{%block nav%}
+<li><a href="{% url 'books:index'%}">Home</a></li>
+<li><a href="{% url 'login:logout'%}">Logout</a></li>
+{% endblock %}
+
+{%block content_left %}
+<div id="left80" style='width:80%; height:80%; display:inline-block;'>
+<h2>Add a New Book Title and a Review</h2>
+<ul>
+  <form action="{% url 'books:newbook' %}" method="post">
+    {% csrf_token %}
+  <li>Book Title : <input type="text" name="title"></li>
+  <li>Author :
+    <ul><li>Choose from the list : <select name="author">
+      <option value="nothing" selected></option>
+      {% for items in authors %}
+      <option value="{{items.name}}">{{items.name}}</option>
+      {% endfor %}
+      </select></li>
+    <li>Or add a new author : <input type="text" name='newauthor'></li>
+  </ul></li>
+  <li>Review : <textarea name="review" rows="3" cols="40"></textarea></li>
+  <li>Rating : <input type="number" name='score' min='1' max='5' step='1'> Stars</li>
+</ul>
+<input type="submit" value="Add Book and Review" style="float:right;">
+</form>
+</div>
+{%endblock%}

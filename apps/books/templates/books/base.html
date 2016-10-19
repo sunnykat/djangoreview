@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {% load staticfiles %}
+  <link rel="stylesheet" type='text/css' href="{% static 'secret/css/style.css' %}">
+  <title>{%block title%}{%endblock%}</title>
+</head>
+<div id="header" style="display:block; height:10%;">
+  {%if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    {% if message.tags == 'success' %}
+    <li class="{{message.tags}}">{{message}}</li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <ul class='nav' style="float:right; list-style:none; display:inline;">
+{%block nav %}{%endblock%}
+  </ul>
+</div>
+{%block content_left%}{%endblock%}
+{%block content_right%}{%endblock%}

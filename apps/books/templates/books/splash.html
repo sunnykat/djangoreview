@@ -1,0 +1,35 @@
+ {% extends 'books/base.html' %}
+
+ {%block title%}Books Home{% endblock %}
+
+{%block nav%}
+<li><a href="{% url 'books:add'%}">Add Book and Review</a></li>
+<li><a href="{% url 'login:logout'%}">Logout</a></li>
+{% endblock %}
+
+ {%block content_left %}
+ <div id="left60" style='width:60%; height:80%; display:inline-block;'>
+ <h2>Recent Book Reviews</h2>
+<ul>
+ {%for items in recentreviews %}
+ <li><a href="{% url 'books:book' b_id=items.book.id %}">{{items.book.title}}</a></li>
+ <li>Rating: {{items.score}}</li>
+ <li><a href="{% url 'books:user' u_id=items.user.id %}">{{items.user.fname}}</a> says: {{items.text}}</li>
+ <li>Posted on {{items.created_at|date:'m-d-Y'}}</li>
+ {% endfor %}
+</ul>
+ </div>
+ {%endblock%}
+
+ {%block content_right %}
+ <div id="right40" style='width:39%; height:80%;'>
+   <h2>Other Books with Reviews</h2>
+   <div class="allreviews" style="width:80%; height:20%; overflow:auto;">
+    <ul>
+     {% for item in allbooks %}
+     <li><a href="{% url 'books:book' b_id=item.id %}">{{item.title}}</a></li>
+     {% endfor %}
+     </ul>
+   </div>
+ </div>
+ {%endblock%}

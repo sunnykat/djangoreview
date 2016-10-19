@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {% load staticfiles %}
+  <link rel="stylesheet" type='text/css' href="{% static 'login/css/style.css' %}">
+</head>
+<div id="login">
+<h1>Login n Reg</h1>
+<form action="{% url 'login:process' %}" method='post'>
+  <ul>
+    <li>First Name: <input type="text" name="fname"></li>
+    <li>Last Name: <input type="text" name="lname"></li>
+    <li>Email: <input type="text" name="email"></li>
+    <li>Password: <input type="password" name="pass1"></li>
+    <li>Confirm Password: <input type="password" name="pass2"></li>
+    {% csrf_token %}
+    <li><input type="submit" value="Register"></li>
+  </ul>
+</form>
+<form action="{% url 'login:login' %}" method='post'>
+<h1>Login</h1>
+  <ul>
+    <li>Email: <input type="text" name='email'></li>
+    <li>Password: <input type="password" name="pass"></li>
+    {% csrf_token %}
+    <li><input type="submit" value='Login'></li>
+  </ul>
+</form>
+</div>
+<div id="alert">
+  {%if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    {% if message.tags %}
+    <li class="{{message.tags}}">{{message}}</li>
+    {%else%}
+    <li>{{message}}</li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>

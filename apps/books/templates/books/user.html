@@ -1,0 +1,26 @@
+{% extends 'books/base.html' %}
+
+{%block title%}User View{% endblock %}
+
+{%block nav%}
+<li><a href="{% url 'books:index'%}">Home</a></li>
+<li><a href="{% url 'books:add'%}">Add Book and Review</a></li>
+<li><a href="{% url 'login:logout'%}">Logout</a></li>
+{% endblock %}
+
+{%block content_left %}
+<div id="left60" style='width:60%; height:80%; display:inline-block;'>
+<h2>User Alias: {{user.fname}}</h2>
+<ul>
+  <li>Name : {{user.fname}} {{user.lname}}</li>
+  <li>Email : {{user.email}}</li>
+  <li>Total Reviews : {{count.count}} </li>
+</ul>
+<h2>Reviews</h2>
+<ul>
+  {%for items in reviews %}
+  <li><a href="{% url 'books:book' b_id=items.book.id %}">{{items.book.title}}</a></li>
+  {%endfor %}
+</ul>
+</div>
+{%endblock%}

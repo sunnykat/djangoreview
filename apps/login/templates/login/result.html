@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {% load staticfiles %}
+  <link rel="stylesheet" type='text/css' href="{% static 'login/css/style.css' %}">
+  <title>Login n Reg | Success</title>
+</head>
+<body>
+
+  <h1>Success! Welcome, {{data.fname}}</h1>
+
+  {%if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    {% if message.tags %}
+    <li class="{{message.tags}}">{{message}}</li>
+    {%else%}
+    <li>{{message}}</li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+  {% endif %}
+  <a href="{% url 'login:logout' %}"><button>Log Out</button></a>
+
+  {% if all %}
+  <ul>
+    {% for items in all %}
+    <li>{{items.pk}} {{items.fname}} {{items.lname}} - {{items.email}} - {{items.created_at}}</li>
+    {% endfor %}
+  {%else%}
+  <li>Nothing yet</li>
+  {% endif %}
+  </ul>
+</body>
+</html>

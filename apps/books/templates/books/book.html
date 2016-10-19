@@ -1,0 +1,40 @@
+{% extends 'books/base.html' %}
+
+{%block title%}Book View{% endblock %}
+
+{%block nav%}
+<li><a href="{% url 'books:index'%}">Home</a></li>
+<li><a href="{% url 'login:logout'%}">Logout</a></li>
+{% endblock %}
+
+{%block content_left %}
+<div id="left60" style='width:60%; height:80%; display:inline-block;'>
+<h2>{{book.title}}</h2>
+<h4>{{book.author.name}}</h4>
+<h2>Reviews</h2>
+<ul>
+  {%for items in reviews %}
+  <hr>
+  <li>Rating {{items.score}}</li>
+  <li><a href="{% url 'books:user' u_id=items.user.id%}">{{items.user.fname}}</a> says: {{items.text}}</li>
+  <li>Posted on {{items.created_at|date:'m-d-Y'}}</li>
+  {% if items.user.id == request.session.id %}
+  <li><a href="{% url 'books:removereview' r_id=items.id %}">Delete this Review</a></li>
+  {%endif%}
+  {%endfor%}
+</ul>
+</div>
+{%endblock%}
+
+{%block content_right %}
+<div id="right40" style='width:39%; height:80%;'>
+  <h3>Add a review : </h3>
+  <form action="{% url 'books:newreview' %}" method='post'>
+    {% csrf_token %}
+    <input type="hidden" name='book' value='{{book.id}}'>
+  <textarea name="review" rows="3" cols="40"></textarea></li>
+  <p>Rating : <input type="number" name='score' min='1' max='5' step='1'> Stars</p>
+  <input type="submit" value="Add Review" style="float:right; margin-top:2em;">
+</form>
+</div>
+{%endblock%}
