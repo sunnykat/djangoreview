@@ -32,9 +32,9 @@ def book(request, b_id):
 def newbook(request):
     if not request.method == 'POST':
         return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
-    book_id=Books.objects.addBooks(request.POST)
-    print book_id
-    return redirect(reverse('book', b_id=book_id ))
+    u_id=request.session['id']
+    book_id=str(Books.objects.addBooks(request.POST,u_id))
+    return redirect('./book/'+book_id)
 
 def newreview(request):
     if not request.method == 'POST':

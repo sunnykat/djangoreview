@@ -4,13 +4,14 @@ from django.db import models
 
 # Create your models here.
 class BookManager(models.Manager):
-    def addBooks(self, form_data):
+    def addBooks(self, form_data, u_id):
         if not form_data['author'] == 'nothing':
             author=Author.objects.filter(name=form_data['author'])[0]
         else :
             author=Author.objects.create(name=form_data['newauthor'])
         book=Books.objects.create(title=form_data['title'], author=author)
-        b_id=Books.objects.get(title=form_data['title'])
+        b_id=Books.objects.filter(title=form_data['title'])[0]
+        review=Reviews.objects.create(text=form_data['review'], book=Books.objects.get(id=b_id.id), user=User.objects.get(id=u_id),score=form_data['score'])
         return b_id.id
     def deleteBook(self, s_id):
         Books.objects.get(id=s_id).delete()
